@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\UserController;
 use \App\Http\Controllers\API\FashionCompanyController;
-//use \App\Http\Controllers\API\RolesController;
+use \App\Http\Controllers\API\ContentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +26,10 @@ Route::group(['prefix'  =>  'v1'],function () {
     Route::group(['prefix'  =>  'user', 'namespace'=>'Api\V1\Auth'],function () {
         Route::post('create',[UserController::class,'store']);
     });
+    Route::group(['prefix'  =>  'content', 'namespace'=>'Api\V1\Auth'],function () {
+        Route::get('/',[ContentController::class,'index']);
+    });
+
     //End No Auth
 
     //Auth

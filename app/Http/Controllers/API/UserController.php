@@ -8,6 +8,7 @@ use App\Http\Requests\LoginRequest;
 use App\Models\User;
 use App\Repository\Eloquent\ForgetPasswordRepository;
 use App\Repository\UserRepositoryInterface;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -30,7 +31,7 @@ class UserController extends Controller
 
     /**
      * Show the profile for a given user.
-     * @return Response
+     * @return void
      */
     public function index()
     {
@@ -40,7 +41,7 @@ class UserController extends Controller
  /**
      * Show the profile for a given user.
      * @param LoginRequest $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
   */
     public function login(LoginRequest $request)
     {
@@ -55,7 +56,7 @@ class UserController extends Controller
     /**
      * Store a new user.
      * @param CreateUserRequest $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
 
     public function store(CreateUserRequest $request)
