@@ -26,6 +26,8 @@ class RoleUpdateRequest extends FormRequest
     {
         return [
             'name' => 'required|unique:roles,name',
+            'permission' => 'required',
+            'permission.*' => 'required',
         ];
     }
     protected function failedValidation(\Illuminate\Contracts\Validation\Validator $validator)

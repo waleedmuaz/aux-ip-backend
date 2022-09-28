@@ -29,7 +29,14 @@ class ContentController extends Controller
             $content->where('page',$request->page);
         }
         $content= $content->first();
-        return jsonFormat(200,$content,'Content');
+        $data=[];
+        if(isset($content->context)  && count($content->context)>0){
+            foreach ($content->context as $key=>$context){
+                $data[$context->name][$context->type][$context->key][]=$context;
+            }
+        }
+
+        return jsonFormat(200,$data,'Content');
     }
     public function updateContext(UpdateContextRequest $request){
         Context::where('id',$request->id)->update([

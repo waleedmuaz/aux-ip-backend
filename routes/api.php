@@ -45,6 +45,7 @@ Route::group(['prefix'  =>  'v1'],function () {
         Route::group(['prefix'  =>  'user'],function () {
             Route::resource('roles', RolesController::class)->except(['update']);
             Route::post('role/{role}', [RolesController::class,'update']);
+            Route::get('role/{id}', [RolesController::class,'listOfPermissionWithRoleId']);
         });
         Route::group(['prefix'  =>  'company'],function () {
             Route::get('detail',[FashionCompanyController::class,'index']);

@@ -21,5 +21,6 @@ class Context extends Model
         "type",
         "status",
         "content_id",
+        "extra_detail_content",
     ];
 }

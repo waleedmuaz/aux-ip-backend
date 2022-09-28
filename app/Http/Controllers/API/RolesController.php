@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RoleRequest;
 use App\Http\Requests\RoleUpdateRequest;
+use App\Models\RoleHasPermission;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -32,13 +33,28 @@ class RolesController extends Controller
      */
     public function index(Request $request)
     {
-        $data=[
-            'permissions' => Permission::get(),
-            'roles' => Role::get(),
-        ];
+        $data = Role::with('permissions')->get();
         return jsonFormat(200,$data,'List of Roles and Permission');
 //        return view('roles.index',compact('roles'))
 //            ->with('i', ($request->input('page', 1) - 1) * 5);
+    }
+    public function listOfPermissionWithRoleId(Request $request,$id){
+        $role= Role::with('permissions')->where('id',$id)->first();
+        $permissions = Permission::get();
+        $data=[];
+        $arry=[];
+        $roleSelected = $role->permissions->pluck('id')->toArray();
+        foreach($permissions as $permission){
+            $data[]=[
+                'id'=>$permission->id,
+                'name'=>$permission->name,
+                'selected'=>in_array($permission->id, (array)$roleSelected,true),
+            ];
+        }
+        $arry['permission']=$data;
+        $arry['role']=$role;
+        return jsonFormat(200,$arry,'List of Roles and Permission');
+
     }
 
 
@@ -58,12 +74,10 @@ class RolesController extends Controller
         );
         $dataPermissionList=$request->get('permission');
         foreach ($dataPermissionList as $permission ){
-            $permission = Permission::create([
-                "name"=>$permission,
-                "guard_name"=>"api",
+            RoleHasPermission::create([
+                "role_id"=>$role->id,
+                "permission_id"=>$permission,
             ]);
-            $role->givePermissionTo($permission);
-            $permission->assignRole($role);
         }
         return jsonFormat(200,[],'Role created successfully');
     }
@@ -78,6 +92,15 @@ class RolesController extends Controller
     public function update(RoleUpdateRequest $request,Role $role)
     {
         $role->update(["name"=>$request->get('name')]);
+        RoleHasPermission::where('role_id',$role->id)->delete();
+
+        $dataPermissionList=$request->get('permission');
+        foreach ($dataPermissionList as $permission ){
+            RoleHasPermission::create([
+                "role_id"=>$role->id,
+                "permission_id"=>$permission,
+            ]);
+        }
         return jsonFormat(200,'','update role');
     }
 
