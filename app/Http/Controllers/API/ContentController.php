@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\GetContextRequest;
 use App\Http\Requests\UpdateContextRequest;
 use App\Imports\FashionCompanyImport;
 use App\Models\Content;
@@ -44,6 +45,10 @@ class ContentController extends Controller
         ]);
         return jsonFormat(200,[],'Content updated');
 
+    }
+    public function getContextById(GetContextRequest $request){
+        $context = Context::find($request->id);
+        return jsonFormat(200,$context,'Context');
     }
 
 }

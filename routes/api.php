@@ -29,6 +29,7 @@ Route::group(['prefix'  =>  'v1'],function () {
     Route::group(['prefix'  =>  'content', 'namespace'=>'Api\V1\Auth'],function () {
         Route::get('/',[ContentController::class,'index']);
         Route::post('/update',[ContentController::class,'updateContext']);
+        Route::post('/context',[ContentController::class,'getContextById']);
     });
 
     //End No Auth
