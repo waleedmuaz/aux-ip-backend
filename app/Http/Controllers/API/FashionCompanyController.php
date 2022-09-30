@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ImportFileCSVRequest;
 use App\Imports\FashionCompanyImport;
 use App\Models\FashionCompany;
 use Illuminate\Http\Request;
@@ -26,9 +27,9 @@ class FashionCompanyController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
 
-    public function imported()
+    public function imported(Request $request)
     {
-        $path1 = request()->file('file')->store('temp');
+        $path1 = $request->file('csv')->store('temp');
         $path=storage_path('app').'/'.$path1;
         Excel::import(new FashionCompanyImport(),$path);
         return jsonFormat(200,[],'successfully uploaded');
