@@ -5,7 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Imports\FashionCompanyImport;
 use App\Models\FashionCompany;
-use Illuminate\Http\Response;
+use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
 class FashionCompanyController extends Controller
@@ -28,7 +28,9 @@ class FashionCompanyController extends Controller
 
     public function imported()
     {
-        Excel::import(new FashionCompanyImport(),request()->file('file'));
+        $path1 = request()->file('file')->store('temp');
+        $path=storage_path('app').'/'.$path1;
+        Excel::import(new FashionCompanyImport(),$path);
         return jsonFormat(200,[],'successfully uploaded');
     }
 
