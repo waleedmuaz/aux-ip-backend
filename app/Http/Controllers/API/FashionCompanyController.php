@@ -19,7 +19,7 @@ class FashionCompanyController extends Controller
      */
     public function index()
     {
-        $fashion = FashionCompany::orderBy('id','desc')->paginate(15);
+        $fashion = FashionCompany::orderBy('id','desc')->get();
         return jsonFormat(200,$fashion,'List of Company');
     }
     /**
