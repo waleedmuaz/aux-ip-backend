@@ -50,6 +50,7 @@ Route::group(['prefix'  =>  'v1'],function () {
         });
         Route::group(['prefix'  =>  'company'],function () {
             Route::get('detail',[FashionCompanyController::class,'index']);
+            Route::post('detail',[FashionCompanyController::class,'update']);
         });
     });
 
