@@ -53,9 +53,13 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
 
     public function login(array $attributes)
     {
+        $data=[];
         $auth=Auth::attempt($attributes);
         if ($auth && Auth::user()->is_email_verify==1 && $user =Auth::user() ) {
-            return $token= $user->createToken('auth_token')->plainTextToken;
+            $data['token']=$user->createToken('auth_token')->plainTextToken;
+            $data["user"]=$user;
+            $data["role"]=$user->getRoleNames();
+            return $data;
         }
         return false;
     }
