@@ -10,4 +10,8 @@ class CompniesUser extends Model
     protected $table="company_users";
     protected $fillable=['user_id','company_id'];
     use HasFactory;
+
+    public function company(){
+        return $this->hasOne(Company::class,'id','company_id');
+    }
 }
