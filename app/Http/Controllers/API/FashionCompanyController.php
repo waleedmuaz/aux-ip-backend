@@ -36,8 +36,9 @@ class FashionCompanyController extends Controller
         return jsonFormat(200,[],'successfully uploaded');
     }
     public function update(UpdateCompanyDetailRequest $request){
-        FashionCompany::where('id',$request->id)->update([
-            'instruction'=>$request->content
+        FashionCompany::where('id',$request->id)
+            ->update([
+            $request->col=>$request->text
         ]);
         return jsonFormat(200,[],'successfully uploaded');
     }

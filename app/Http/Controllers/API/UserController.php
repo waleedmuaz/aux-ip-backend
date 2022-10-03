@@ -31,12 +31,12 @@ class UserController extends Controller
 
     /**
      * Show the profile for a given user.
-     * @return void
+     * @return JsonResponse
      */
     public function index()
     {
         $users = $this->userRepository->all();
-        dd('Happy Hacking');
+        return jsonFormat(200,$users,"list of users");
     }
  /**
      * Show the profile for a given user.
@@ -70,6 +70,7 @@ class UserController extends Controller
         $this->userRepository->storeUser($data);
         return jsonFormat(200,'', 'user created successfully');
     }
+
 
 
 }

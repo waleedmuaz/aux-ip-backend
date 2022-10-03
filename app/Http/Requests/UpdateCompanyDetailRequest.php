@@ -26,7 +26,8 @@ class UpdateCompanyDetailRequest extends FormRequest
     {
         return [
             'id' => "required",
-            'content' => "required",
+            'text' => "required",
+            'col' => "required",
         ];
     }
     protected function failedValidation(\Illuminate\Contracts\Validation\Validator $validator)
