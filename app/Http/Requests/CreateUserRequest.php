@@ -27,6 +27,8 @@ class CreateUserRequest extends FormRequest
         return [
             'name' => "required|unique:users,name,$this->id,id",
             'email' => "required|email|unique:users,email,$this->id,id",
+            'company_id'=>'required',
+            'company_id.*'=>'required'
 //            'password'=>'required|max:6'
         ];
     }

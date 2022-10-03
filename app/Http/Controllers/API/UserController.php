@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\LoginRequest;
 use App\Models\Company;
+use App\Models\CompniesUser;
 use App\Models\User;
 use App\Repository\Eloquent\ForgetPasswordRepository;
 use App\Repository\UserRepositoryInterface;
@@ -67,6 +68,7 @@ class UserController extends Controller
             'email'=>$request->email,
             'password'=>Hash::make('123123'),
             'name'=>$request->name,
+            'company_id'=>$request->company_id
         ];
         $this->forgetRepository->submitForgetPasswordForm($data);
         $this->userRepository->storeUser($data);
