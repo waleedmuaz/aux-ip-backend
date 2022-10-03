@@ -40,7 +40,7 @@ Route::group(['prefix'  =>  'v1'],function () {
         Route::get('/user', function (Request $request) {
             return $request->user();
         });
-        Route::get('/users',[UserController::class,'index']);
+        Route::post('/users',[UserController::class,'index']);
         //Import CSV
         Route::post('imported', [FashionCompanyController::class,'imported'])->name('imported');
         //////////////------------------------------------------------------------------------//////////////
