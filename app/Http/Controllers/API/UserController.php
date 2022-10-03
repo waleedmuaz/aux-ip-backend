@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\LoginRequest;
+use App\Models\Company;
 use App\Models\User;
 use App\Repository\Eloquent\ForgetPasswordRepository;
 use App\Repository\UserRepositoryInterface;
@@ -35,7 +36,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = $this->userRepository->all();
+        $users['users'] = $this->userRepository->all();
+        $users['company']=Company::get();
         return jsonFormat(200,$users,"list of users");
     }
  /**
