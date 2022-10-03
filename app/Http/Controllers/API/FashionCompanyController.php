@@ -40,8 +40,5 @@ class FashionCompanyController extends Controller
             'instruction'=>$request->content
         ]);
         return jsonFormat(200,[],'successfully uploaded');
-
     }
-
-
 }

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="logo_client-coty_v02" data-name="logo/client-coty_v02" width="87.911" height="21.791" viewBox="0 0 87.911 21.791">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_147012" data-name="Rectangle 147012" width="87.911" height="21.791" fill="#fff"></rect>
+    </clipPath>
+  </defs>
+  <g id="Group_81433" data-name="Group 81433" clip-path="url(#clip-path)">
+    <path id="Path_63243" data-name="Path 63243" d="M33.518,0c6.57,0,11.228,4.824,11.228,10.9a10.855,10.855,0,0,1-11.228,10.9A10.9,10.9,0,1,1,33.518,0M11.311,0a11.224,11.224,0,0,1,7.818,2.994L16.468,5.822A7.346,7.346,0,0,0,11.311,3.66a7.153,7.153,0,0,0,.166,14.305,7.439,7.439,0,0,0,5.157-2L19.3,18.8a11.619,11.619,0,0,1-7.9,2.911C4.824,21.791,0,16.967,0,10.9S4.741,0,11.311,0m35.6.5H64.374V3.992H57.72V21.208H53.479V3.992H46.825V.5ZM66.7.5h5.073l5.572,8.65L82.921.5h4.99L79.428,13.141v8.151H75.269V13.224ZM33.518,3.743A7.065,7.065,0,0,0,26.531,10.9a6.988,6.988,0,1,0,13.973,0,7.013,7.013,0,0,0-6.986-7.153" transform="translate(0 0)" fill="#fff" fill-rule="evenodd"></path>
+  </g>
+</svg>
