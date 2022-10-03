@@ -27,7 +27,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
      */
     public function all(): Collection
     {
-        return $this->model->all();
+        return User::with('companies')->get();
     }
 
     /**

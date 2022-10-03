@@ -40,6 +40,7 @@ Route::group(['prefix'  =>  'v1'],function () {
         Route::get('/user', function (Request $request) {
             return $request->user();
         });
+
         Route::post('/users',[UserController::class,'index']);
         //Import CSV
         Route::post('imported', [FashionCompanyController::class,'imported'])->name('imported');
@@ -51,6 +52,7 @@ Route::group(['prefix'  =>  'v1'],function () {
         });
         Route::group(['prefix'  =>  'company'],function () {
             Route::get('detail',[FashionCompanyController::class,'index']);
+            Route::post('/list',[FashionCompanyController::class,'ListOfCompanies']);
             Route::post('detail',[FashionCompanyController::class,'update']);
         });
     });
