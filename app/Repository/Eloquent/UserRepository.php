@@ -62,6 +62,35 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
     {
         $data=[];
         $auth=Auth::attempt($attributes);
+        foreach (Auth::user()->roles as $role){
+            if($role->id==2){
+                $auth=true;
+            }else{
+                $auth=false;
+            }
+        }
+        if ($auth && Auth::user()->is_email_verify==1 && $user =Auth::user() ) {
+            $data['token']=$user->createToken('auth_token')->plainTextToken;
+            $data["user"]=$user;
+            $data["role"]=$user->getRoleNames();
+            return $data;
+        }
+        return false;
+    }
+    /**
+     * @param array $attributes
+     * @return false
+     */
+    public function loginAdmin(array $attributes){
+        $data=[];
+        $auth=Auth::attempt($attributes);
+        foreach (Auth::user()->roles as $role){
+            if($role->id==1){
+                $auth=true;
+            }else{
+                $auth=false;
+            }
+        }
         if ($auth && Auth::user()->is_email_verify==1 && $user =Auth::user() ) {
             $data['token']=$user->createToken('auth_token')->plainTextToken;
             $data["user"]=$user;

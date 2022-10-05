@@ -55,6 +55,20 @@ class UserController extends Controller
         }
         return jsonFormat(419, [], 'Oppes! You have entered invalid credentials');
     }
+    /**
+     * Show the profile for a given user.
+     * @param LoginRequest $request
+     * @return JsonResponse
+     */
+    public function loginAdmin(LoginRequest $request)
+    {
+        $credentials = $request->only('email', 'password');
+        $token=$this->userRepository->loginAdmin($credentials);
+        if($token){
+            return jsonFormat(200, $token, 'You have Successfully loggedin');
+        }
+        return jsonFormat(419, [], 'Oppes! You have entered invalid credentials');
+    }
 
     /**
      * Store a new user.

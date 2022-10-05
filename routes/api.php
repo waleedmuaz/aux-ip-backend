@@ -23,6 +23,7 @@ use \App\Http\Controllers\API\ContentController;
 Route::group(['prefix'  =>  'v1'],function () {
     //No Auth
     Route::post('login',[UserController::class,'login']);
+    Route::post('admin/login',[UserController::class,'loginAdmin']);
     Route::group(['prefix'  =>  'user', 'namespace'=>'Api\V1\Auth'],function () {
         Route::post('create',[UserController::class,'store']);
     });
