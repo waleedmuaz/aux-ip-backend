@@ -49,22 +49,26 @@ class InstructorController extends Controller
             $array = [];
             if($request->user_id != null){
                 $data['user'] = User::with('companies.company')->where('id',$request->user_id)->first();
-                $insts=InstructorUser::with('instruction')->where('user_id',$request->user_id)->get();
+                $insts=InstructorUser::with('user','instruction')->where('user_id',$request->user_id)->get();
                 foreach ($insts as $inst){
                     $json = json_decode($inst->instruction_array);
                     $json->status=$inst->status;
                     $json->inst_id=$inst->id;
+                    $json->user_name=isset($inst->user->name)? $inst->user->name: "";
+                    $json->user_email=isset($inst->user->email)?$inst->user->email: "" ;
                     $array[]=$json;
                 }
                 $data['instruction_list']=$array;
                 $data['logs']= InstructorLogs::with('user.companies.company','instruction')->where('user_id',$request->user_id)->get();
             }else{
                 $data['user'] = "";
-                $insts=InstructorUser::with('instruction')->get();
+                $insts=InstructorUser::with('user','instruction')->get();
                 foreach ($insts as $inst){
                     $json = json_decode($inst->instruction_array);
                     $json->status=$inst->status;
                     $json->inst_id=$inst->id;
+                    $json->user_name=isset($inst->user->name)? $inst->user->name: "";
+                    $json->user_email=isset($inst->user->email)?$inst->user->email: "" ;
                     $array[]=$json;
                 }
                 $data['instruction_list']=$array;
@@ -94,11 +98,14 @@ class InstructorController extends Controller
     }
     public function getInstructionLogList(Request $request){
         $array = [];
-        $insts=InstructorLogs::with('instruction')->get();
+        $insts=InstructorLogs::with('user','instruction')->get();
         foreach ($insts as $inst){
             $json = json_decode($inst->instruction_array);
             $json->status=$inst->status;
             $json->inst_id=$inst->id;
+            $json->user_name=isset($inst->user->name)? $inst->user->name: "";
+            $json->user_email=isset($inst->user->email)?$inst->user->email: "" ;
+
             $array[]=$json;
         }
         $data['instruction_list']=$array;
