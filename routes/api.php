@@ -6,7 +6,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\UserController;
 use \App\Http\Controllers\API\FashionCompanyController;
 use \App\Http\Controllers\API\ContentController;
-
+use \App\Http\Controllers\API\InstructorController;
+use \App\Http\Controllers\API\CMSController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -32,6 +33,8 @@ Route::group(['prefix'  =>  'v1'],function () {
         Route::post('/update',[ContentController::class,'updateContext']);
         Route::post('/context',[ContentController::class,'getContextById']);
     });
+//    Route::get('/list',[InstructorController::class,'getInstructionList']);
+
 
     //End No Auth
 
@@ -46,15 +49,28 @@ Route::group(['prefix'  =>  'v1'],function () {
         //Import CSV
         Route::post('imported', [FashionCompanyController::class,'imported'])->name('imported');
         //////////////------------------------------------------------------------------------//////////////
-        Route::group(['prefix'  =>  'user'],function () {
+        Route::group(['prefix'  =>  'user'],function(){
             Route::resource('roles', RolesController::class)->except(['update']);
             Route::post('role/{role}', [RolesController::class,'update']);
             Route::get('role/{id}', [RolesController::class,'listOfPermissionWithRoleId']);
         });
-        Route::group(['prefix'  =>  'company'],function () {
+        Route::group(['prefix'  =>  'company'],function(){
             Route::get('detail',[FashionCompanyController::class,'index']);
             Route::post('/list',[FashionCompanyController::class,'ListOfCompanies']);
             Route::post('detail',[FashionCompanyController::class,'update']);
+            Route::post('create',[FashionCompanyController::class,'store']);
+            Route::post('form/store',[FashionCompanyController::class,'formDataSubmit']);
+        });
+        Route::group(['prefix'=>'instruction'],function(){
+            Route::post('/store',[InstructorController::class,'store']);
+            Route::get('/get',[InstructorController::class,'getInstruction']);
+            Route::post('/list',[InstructorController::class,'getInstructionList']);
+            Route::post('/status',[InstructorController::class,'statusUpdate']);
+            Route::post('/logs/list',[InstructorController::class,'getInstructionLogList']);
+        });
+        Route::group(['prefix'=>'cms'],function(){
+            Route::get('/',[CMSController::class,'index']);
+            Route::post('/upload',[CMSController::class,'store']);
         });
     });
 

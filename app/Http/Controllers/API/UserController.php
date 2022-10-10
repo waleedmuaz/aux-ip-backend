@@ -86,7 +86,9 @@ class UserController extends Controller
         ];
         $this->forgetRepository->submitForgetPasswordForm($data);
         $this->userRepository->storeUser($data);
-        return jsonFormat(200,'', 'user created successfully');
+        $users['users'] = $this->userRepository->all();
+        $users['company']=Company::get();
+        return jsonFormat(200,$users, 'user created successfully');
     }
 
 
