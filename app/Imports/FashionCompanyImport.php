@@ -3,6 +3,7 @@
 namespace App\Imports;
 
 use App\Models\FashionCompany;
+use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Concerns\ToModel;
 
 class FashionCompanyImport implements ToModel
@@ -14,6 +15,7 @@ class FashionCompanyImport implements ToModel
     */
     public function model(array $row)
     {
+        Log::info($row);
         return new FashionCompany([
             "reference"=>$row[0],
             "ip_type"=>$row[1],
@@ -27,6 +29,7 @@ class FashionCompanyImport implements ToModel
             "last_instruction_date"=>$row[9],
             "action_type"=>$row[10],
             "estimated_cost"=>$row[11],
+            'user_id'=>$row[14]
         ]);
     }
 }

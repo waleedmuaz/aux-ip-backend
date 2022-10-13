@@ -25,5 +25,9 @@ class FashionCompany extends Model
         "last_instruction_date",
         "action_type",
         "estimated_cost",
+        'user_id'
     ];
+    public function user(){
+        return $this->hasOne(User::class,'id','user_id');
+    }
 }

@@ -37,6 +37,7 @@ class FashionCompanyRequest extends FormRequest
             "last_instruction_date"=>'required',
             "estimated_cost"=>'required',
             "instruction"=>'required',
+            "user_id"=>'required',
         ];
     }
     protected function failedValidation(\Illuminate\Contracts\Validation\Validator $validator)

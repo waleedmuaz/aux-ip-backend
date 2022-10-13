@@ -21,9 +21,14 @@ class FashionCompanyController extends Controller
      * Show the profile for a given user.
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index()
+    public function index(Request $request)
     {
-        $fashion = FashionCompany::orderBy('id','desc')->get();
+        $user=$request->user();
+        if($user->roles[0]->id==2){
+            $fashion = FashionCompany::with('user')->where('user_id',$user->id)->orderBy('id','desc')->get();
+        }else{
+            $fashion = FashionCompany::with('user')->orderBy('id','desc')->get();
+        }
         return jsonFormat(200,$fashion,'List of Company');
     }
     /**
@@ -62,14 +67,15 @@ class FashionCompanyController extends Controller
             "ip_type"=>$request->ip_type,
             "application"=>$request->application,
             "application_numbers"=>$request->application_numbers,
-            "application_filing_date"=>$request->application_filing_date,
+            "application_filing_date"=>date('MM d Y', strtotime($request->application_filing_date)),
             "patent_numbers"=>$request->patent_numbers,
-            "grant_date"=>$request->grant_date,
+            "grant_date"=>date('MM d Y', strtotime($request->grant_date)),
             "country"=>$request->country,
-            "due_date"=>$request->due_date,
-            "last_instruction_date"=>$request->last_instruction_date,
+            "due_date"=>date('MM d Y', strtotime($request->due_date)),
+            "last_instruction_date"=>date('MM d Y', strtotime($request->last_instruction_date)),
             "action_type"=>$request->action_type,
             "estimated_cost"=>$request->estimated_cost,
+            "user_id"=>$request->user_id
         ];
         FashionCompany::create($data);
         $fashion= FashionCompany::get();
