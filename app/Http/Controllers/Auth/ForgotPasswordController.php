@@ -52,7 +52,7 @@ class ForgotPasswordController extends Controller
      * Write code on Method
      *
      * @param ResetFormRequest $request
-     * @return Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|Response
      */
     public function submitResetPasswordForm(ResetFormRequest $request)
     {
@@ -62,7 +62,10 @@ class ForgotPasswordController extends Controller
           'password'=>$request->password
         ];
         $response=$this->forgetPasswordRepository->submitResetPasswordForm($data);
-
-        return jsonFormat('200',[],'Your password has been changed!');
+        return view('auth.change');
+//        return jsonFormat('200',[],'Your password has been changed!');
+    }
+    public function viewCheck(){
+        return view('auth.change');
     }
 }
