@@ -59,10 +59,10 @@ class InstructorController extends Controller
                     $array[]=$json;
                 }
                 $data['instruction_list']=$array;
-                $data['logs']= InstructorLogs::with('user.companies.company','instruction')->where('status','pending')->where('user_id',$request->user_id)->get();
+                $data['logs']= InstructorLogs::with('user.companies.company','instruction')->where('user_id',$request->user_id)->get();
             }else{
                 $data['user'] = "";
-                $insts=InstructorUser::with('user','instruction')->get();
+                $insts=InstructorUser::with('user','instruction')->where('status','pending')->get();
                 foreach ($insts as $inst){
                     $json = json_decode($inst->instruction_array);
                     $json->status=$inst->status;
