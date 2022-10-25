@@ -8,6 +8,7 @@ use App\Http\Requests\FashionCompanyRequest;
 use App\Http\Requests\ImportFileCSVRequest;
 use App\Http\Requests\UpdateCompanyDetailRequest;
 use App\Imports\FashionCompanyImport;
+use App\Models\ColStructure;
 use App\Models\Company;
 use App\Models\FashionCompany;
 use Illuminate\Http\Request;
@@ -23,13 +24,24 @@ class FashionCompanyController extends Controller
      */
     public function index(Request $request)
     {
+        $cols=[];
+        $data=[];
         $user=$request->user();
-        if($user->roles[0]->id==2){
-            $fashion = FashionCompany::with('user')->where('user_id',$user->id)->orderBy('id','desc')->get();
-        }else{
-            $fashion = FashionCompany::with('user')->orderBy('id','desc')->get();
+        $columns=ColStructure::where('hidden',0)->pluck('field');
+//        dd($columns);
+        foreach ($columns as  $column){
+            $cols[]=$column;
         }
-        return jsonFormat(200,$fashion,'List of Company');
+        $cols[]='user_id';
+        if($user->roles[0]->id==2){
+            $fashion = FashionCompany::with('user')->where('user_id',$user->id)->orderBy('id','desc')->get($cols);
+        }else{
+            $fashion = FashionCompany::with('user')->orderBy('id','desc')->get($cols);
+        }
+        $data['instruction']=$fashion;
+        $data['colStruct']=ColStructure::where('hidden',0)->get();
+        $data['column']=ColStructure::get();
+        return jsonFormat(200,$data,'List of Company');
     }
     /**
      * Show the profile for a given user.

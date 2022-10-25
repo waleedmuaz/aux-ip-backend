@@ -8,6 +8,7 @@ use \App\Http\Controllers\API\FashionCompanyController;
 use \App\Http\Controllers\API\ContentController;
 use \App\Http\Controllers\API\InstructorController;
 use \App\Http\Controllers\API\CMSController;
+use \App\Http\Controllers\API\ColStructController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -71,6 +72,11 @@ Route::group(['prefix'  =>  'v1'],function () {
         Route::group(['prefix'=>'cms'],function(){
             Route::get('/',[CMSController::class,'index']);
             Route::post('/upload',[CMSController::class,'store']);
+        });
+        Route::group(['prefix'=>'col'],function(){
+            Route::post('/',[ColStructController::class,'createCol']);
+            Route::get('/list',[ColStructController::class,'index']);
+            Route::post('/toggle',[ColStructController::class,'updateToggle']);
         });
     });
 
